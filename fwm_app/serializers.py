@@ -30,4 +30,9 @@ class OrdersSerializer(serializers.ModelSerializer):
 	class Meta:
 		model=Orders
 		fields="__all__"
+
+class AccountSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Accounts
+        fields = ['account_email', 'account_password']
 		

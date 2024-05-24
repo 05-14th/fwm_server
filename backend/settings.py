@@ -11,6 +11,12 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import socket
+import ssl
+import os
+
+# Disable SSL certificate verification
+os.environ['DJANGO_TLS_IGNORE'] = 'True'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +31,7 @@ SECRET_KEY = 'django-insecure-6zuir@kqk(%fiq61x2p+ou75s@qg91f*dc8!z4xe^28#33q++=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['192.168.100.110', '192.168.8.100', '192.168.8.102']
 
 
 # Application definition
@@ -39,6 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'fwm_app',
     'rest_framework',
+    'corsheaders',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -49,6 +57,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -105,6 +115,21 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+CORS_ORIGIN_ALLOW_ALL = True
+
+
+# Optional: Allow credentials if your frontend sends cookies or uses sessions
+CORS_ALLOW_CREDENTIALS = True
+
+# Optional: Specify allowed methods and headers
+CORS_ALLOWED_METHODS = [
+    'GET',
+    'POST',
+]
+CORS_ALLOWED_HEADERS = [
+    'Content-Type',
+    'Authorization',
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
@@ -127,3 +152,17 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+APPEND_SLASH = False
+
+CSRF_TRUSTED_ORIGINS = ['http://192.168.100.182:30002', 'http://192.168.8.105:30002','https://192.168.8.103:30002', 'https://192.168.8.103:30001', 'https://192.168.8.102:3000']
+
+CSRF_COOKIE_SECURE = True
+
+SESSION_COOKIE_SECURE = True
+
+CSRF_COOKIE_HTTPONLY = True
+
+SECURE_SSL_REDIRECT = True
+
+os.environ['REQUESTS_CA_BUNDLE'] = ''

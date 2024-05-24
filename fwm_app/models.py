@@ -7,6 +7,17 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
+class Accounts(models.Model):
+	account_id = models.IntegerField(primary_key=True)
+	account_email = models.CharField(max_length=255)
+	account_password = models.CharField(max_length=255)
+	account_username = models.CharField(max_length=255)
+	account_contact = models.CharField(max_length=255)
+
+	class Meta:
+		managed=False
+		db_table='fwm_account'
+
 class Address(models.Model):
 	address_id = models.IntegerField(primary_key=True, max_length=11)
 	street = models.CharField(max_length=255)
@@ -23,11 +34,8 @@ class Vendor(models.Model):
 	vendor_id = models.IntegerField(primary_key=True, max_length=11)
 	vendor_name = models.CharField(max_length=40)
 	vendor_address = models.ForeignKey('Address', models.DO_NOTHING, db_column='vendor_address')
-	vendor_contact = models.CharField(unique=True, max_length = 13)
-	vendor_email = models.CharField(unique=True, max_length = 255)
-	vendor_uname = models.CharField(unique=True, max_length = 20)
-	vendor_pass = models.CharField(max_length=500)
-
+	vendor_account = models.CharField(unique=True, max_length = 13)
+	
 	class Meta:
 		managed = False
 		db_table = 'fwm_vendor'
@@ -80,3 +88,5 @@ class Orders(models.Model):
 	class Meta:
 		managed=False
 		db_table='fwm_orders'
+
+

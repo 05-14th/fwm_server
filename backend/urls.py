@@ -27,10 +27,15 @@ router.register('organizations', views.OrganizationAPI)
 router.register('customer', views.CustomerAPI)
 router.register('orders', views.OrdersAPI)
 router.register('product', views.ProductAPI)
+router.register('accounts', views.AccountAPI)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls))
+    path('api/', include(router.urls)),
+    path('api/check_credentials/', views.check_credentials, name='check_credentials'),
+    path('api/signup/', views.signup, name='signup'),
+    path('api/placeOrder/', views.placeOrder, name='place_order')
 ]
 
 

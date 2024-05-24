@@ -15,7 +15,7 @@ DATABASES = {
         'NAME': 'fwm_ai',
         'USER': 'root',
         'PASSWORD':'',
-        'HOST':'localhost',
+        'HOST':'127.0.0.1',
         'PORT':'3306'
     }
 }
@@ -30,3 +30,7 @@ INSTALLED_APPS = [
 	'employees_app',    
 	'rest_framework',
 ]
+
+# settings.py
+
+
